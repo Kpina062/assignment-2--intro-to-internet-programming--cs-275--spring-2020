@@ -7,7 +7,6 @@ const htmlCompressor = require(`gulp-htmlmin`);
 const htmlValidator = require(`gulp-html`);
 const jsLinter = require(`gulp-eslint`);
 const jsCompressor = require(`gulp-uglify`);
-const cache = require(`gulp-cache`);
 const browserSync = require(`browser-sync`);
 const reload = browserSync.reload;
 let browserChoice  = `default`
@@ -159,7 +158,7 @@ let serve = () => {
         series(validateCSS)
     ).on(`change`,reload);
 
-    };
+};
 
 async function listTasks () {
     let exec = require(`child_process`).exec;
@@ -200,7 +199,6 @@ exports.build = series (
     compressHTML,
     compileCSSForProd,
     transpileJSForProd,
-    compressImages,
     copyUnprocessedAssetsForProd
 );
 
