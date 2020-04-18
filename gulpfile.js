@@ -160,6 +160,7 @@ let serve = () => {
 
 };
 
+// eslint-disable-next-line no-unused-vars
 async function listTasks () {
     let exec = require(`child_process`).exec;
 
