@@ -41,6 +41,7 @@ async function allBrowsers () {
 
 let validateHTML = () => {
     return src([
+        // eslint-disable-next-line no-unexpected-multiline
         `dev/html/*html`
         `dev/html/**/*.html`])
         .pipe(htmlValidator());
