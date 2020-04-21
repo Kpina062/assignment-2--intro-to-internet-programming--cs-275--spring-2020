@@ -1,5 +1,4 @@
 const { src, dest, series, watch } = require(`gulp`);
-const del = require(`del`);
 const sass = require(`gulp-sass`);
 const cssValidator = require (`gulp-stylelint`);
 const jsTranspile =  require(`gulp-babel`);
@@ -9,7 +8,7 @@ const jsLinter = require(`gulp-eslint`);
 const jsCompressor = require(`gulp-uglify`);
 const browserSync = require(`browser-sync`);
 const reload = browserSync.reload;
-let browserChoice  = `default`
+let browserChoice  = `default`;
 
 async function safari () {
     browserChoice = `safari`;
