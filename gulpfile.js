@@ -1,7 +1,6 @@
-const { src, dest, series, watch } = require(`gulp`);
-const sass = require(`gulp-sass`);
-const cssValidator = require (`gulp-stylelint`);
-const jsTranspile =  require(`gulp-babel`);
+const { src, dest, watch, series } = require(`gulp`);
+const sass = require(`gulp-stylelint`);
+const babel =  require(`gulp-babel`);
 const htmlCompressor = require(`gulp-htmlmin`);
 const htmlValidator = require(`gulp-html`);
 const jsLinter = require(`gulp-eslint`);
@@ -41,8 +40,8 @@ async function allBrowsers () {
 let validateHTML = () => {
     return src([
         // eslint-disable-next-line no-unexpected-multiline
-        `dev/html/*html`
-        `dev/html/**/*.html`])
+        `html/*html`
+        `html/**/*.html`])
         .pipe(htmlValidator());
 };
 
@@ -53,47 +52,39 @@ let compressHTML = () => {
 
 };
 
-let validateCSS = () => {
-    return src([
-        `dev/css/*.css`,
-        `dev/html/**/*.css`])
-        .pipe(cssValidator());
-
-};
-
 let compileCSSForDev = () => {
-    return src(`dev/styles/main.scss`)
+    return src(`css/style.css`)
         .pipe(sass({
             outputStyle: `expanded`,
             precision: 10
         }).on(`error`, sass.logError))
-        .pipe(dest(`temp/styles`));
+        .pipe(dest(`temp/css`));
 
 };
 
 let compileCSSForProd = () => {
-    return src(`dev/styles/main.scss`)
+    return src(`css/style.css`)
         .pipe(sass({
             outputStyle: `compressed`,
             precision: 10
         }).on(`error`, sass.logError))
-        .pipe(dest(`prod/styles`));
+        .pipe(dest(`prod/css`));
 };
 
 let transpileJSForDev = () => {
-    return src(`dev/scripts/*.js`)
+    return src(`js/*.js`)
         .pipe(babel())
-        .pipe(dest(`temp/scripts`));
+        .pipe(dest(`temp/js`));
 };
 let transpileJSForProd = () => {
-    return src(`dev/scripts/*.js`)
+    return src(`js/*.js`)
         .pipe(babel())
         .pipe(jsCompressor())
-        .pipe(dest(`prod/scripts`));
+        .pipe(dest(`prod/js`));
 };
 
 let lintJS = () => {
-    return src(`dev/scripts/*.js`)
+    return src(`js/*.js`)
         .pipe(jsLinter({
             parserOptions: {
                 ecmaVersion: 2017,
@@ -117,47 +108,39 @@ let lintJS = () => {
 };
 let copyUnprocessedAssetsForProd = () => {
     return src([
-        `dev/*.*`,       // Source all files,
-        `dev/**`,        // and all folders,
-        `!dev/html/`,    // but not the HTML folder
-        `!dev/html/*.*`, // or any files in it
-        `!dev/html/**`,  // or any sub folders;
-        `!dev/img/`,     // ignore images;
-        `!dev/**/*.js`,  // ignore JS;
-        `!dev/styles/**` // and, ignore Sass/CSS.
+        `!html/`,
+        `!html/*.*`,
+        `!html/**`,
+        `**/*.js`,
+        `!css/**`
     ], {dot: true}).pipe(dest(`prod`));
 };
+
 let serve = () => {
     browserSync({
         notify: true,
-        port: 9000,
-        reloadDelay: 50,
-        browser: browserChoice,
+        reloadDelay: 0,
         server: {
             baseDir: [
-                `temp`,
-                `dev`,
-                `dev/html`
+                `html`,
+                `css`,
+                `js`
             ]
         }
     });
+    watch([`html/**/*.html`,`css/**/*.css`,`js/**/*.js`]).on(`change`, reload);
 
-    watch(`dev/scripts/*.js`,
+    watch(`js/*.js`,
         series(lintJS, transpileJSForDev)
-    ).on(`change`, reload);
-
-    watch(`dev/html/**/*.html`,
-        series(validateHTML)
-    ).on(`change`, reload);
-
-    watch(`dev/html/**/*.html`,
-        series(validateHTML)
-    ).on(`change`, reload);
-
-    watch (`dev/css/**.css`,
-        series(validateCSS)
     ).on(`change`,reload);
 
+    watch(`css/**/*.css`,
+        series(compileCSSForDev)
+    ).on(`change`,reload);
+
+    watch(`html/**/*.html`,
+        series(validateHTML)
+    ).on(`change`,reload);
 };
 
 // eslint-disable-next-line no-unused-vars
