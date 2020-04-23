@@ -40,16 +40,15 @@ async function allBrowsers () {
 let validateHTML = () => {
     return src([
         // eslint-disable-next-line no-unexpected-multiline
-        `html/*html`
-        `html/**/*.html`])
+        `dev/html/*html`
+        `dev/html/**/*.html`])
         .pipe(htmlValidator());
 };
 
 let compressHTML = () => {
-    return src(`uncompressed-html*.html`)
+    return src([`dev/html/*.html`,`dev/html/**/*.html`])
         .pipe(htmlCompressor({collapseWhitespace: true}))
-        .pipe(dest(`compressed-html/`));
-
+        .pipe(dest(`prod`));
 };
 
 let compileCSSForDev = () => {
@@ -72,19 +71,19 @@ let compileCSSForProd = () => {
 };
 
 let transpileJSForDev = () => {
-    return src(`js/*.js`)
+    return src(`dev/js/*.js`)
         .pipe(babel())
         .pipe(dest(`temp/js`));
 };
 let transpileJSForProd = () => {
-    return src(`js/*.js`)
+    return src(`dev/js/*.js`)
         .pipe(babel())
         .pipe(jsCompressor())
         .pipe(dest(`prod/js`));
 };
 
 let lintJS = () => {
-    return src(`js/*.js`)
+    return src(`dev/js/*.js`)
         .pipe(jsLinter({
             parserOptions: {
                 ecmaVersion: 2017,
@@ -108,11 +107,13 @@ let lintJS = () => {
 };
 let copyUnprocessedAssetsForProd = () => {
     return src([
-        `!html/`,
-        `!html/*.*`,
-        `!html/**`,
-        `**/*.js`,
-        `!css/**`
+        `dev/*.*`,       // Source all files,
+        `dev/**`,        // and all folders,
+        `!dev/html/`,    // but not the HTML folder
+        `!dev/html/*.*`, // or any files in it
+        `!dev/html/**`,  // or any sub folders;
+        `!dev/**/*.js`,  // ignore JS;
+        `!dev/css/**` // and, ignore Sass/CSS.
     ], {dot: true}).pipe(dest(`prod`));
 };
 
@@ -122,28 +123,28 @@ let serve = () => {
         reloadDelay: 0,
         server: {
             baseDir: [
-                `html`,
-                `css`,
-                `js`
+                `dev`,
+                `dev/html`,
+                `dev/css`,
+                `dev/js`
             ]
         }
     });
     watch([`html/**/*.html`,`css/**/*.css`,`js/**/*.js`]).on(`change`, reload);
 
-    watch(`js/*.js`,
+    watch(`dev/js/*.js`,
         series(lintJS, transpileJSForDev)
     ).on(`change`,reload);
 
-    watch(`css/**/*.css`,
+    watch(`dev/css/**/*.css`,
         series(compileCSSForDev)
     ).on(`change`,reload);
 
-    watch(`html/**/*.html`,
+    watch(`dev/html/**/*.html`,
         series(validateHTML)
     ).on(`change`,reload);
 };
 
-// eslint-disable-next-line no-unused-vars
 async function listTasks () {
     let exec = require(`child_process`).exec;
 
@@ -185,7 +186,8 @@ exports.build = series (
     transpileJSForProd,
     copyUnprocessedAssetsForProd
 );
-
+exports.serve = series(lintJS, transpileJSForDev, validateHTML, serve);
+exports.default= listTasks;
 
 
 
