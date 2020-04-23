@@ -107,13 +107,11 @@ let lintJS = () => {
 };
 let copyUnprocessedAssetsForProd = () => {
     return src([
-        `dev/*.*`,       // Source all files,
-        `dev/**`,        // and all folders,
-        `!dev/html/`,    // but not the HTML folder
-        `!dev/html/*.*`, // or any files in it
-        `!dev/html/**`,  // or any sub folders;
-        `!dev/**/*.js`,  // ignore JS;
-        `!dev/css/**` // and, ignore Sass/CSS.
+        `!html/`,    // but not the HTML folder
+        `!html/*.*`, // or any files in it
+        `!html/**`,  // or any sub folders;
+        `!**/*.js`,  // ignore JS;
+        `!css/**` // and, ignore Sass/CSS.
     ], {dot: true}).pipe(dest(`prod`));
 };
 
@@ -123,24 +121,23 @@ let serve = () => {
         reloadDelay: 0,
         server: {
             baseDir: [
-                `dev`,
-                `dev/html`,
-                `dev/css`,
-                `dev/js`
+                `html`,
+                `css`,
+                `js`
             ]
         }
     });
     watch([`html/**/*.html`,`css/**/*.css`,`js/**/*.js`]).on(`change`, reload);
 
-    watch(`dev/js/*.js`,
+    watch(`js/*.js`,
         series(lintJS, transpileJSForDev)
     ).on(`change`,reload);
 
-    watch(`dev/css/**/*.css`,
+    watch(`css/**/*.css`,
         series(compileCSSForDev)
     ).on(`change`,reload);
 
-    watch(`dev/html/**/*.html`,
+    watch(`html/**/*.html`,
         series(validateHTML)
     ).on(`change`,reload);
 };
