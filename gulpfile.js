@@ -12,7 +12,7 @@ const reload = browserSync.reload;
 let compressHTML = () => {
     return src(`html/*.html`)
         .pipe(htmlCompressor({collapseWhitespace: true}))
-        .pipe(dest(`html`));
+        .pipe(dest(`compressed-html/`));
 };
 
 let validateHTML = () => {
@@ -58,7 +58,7 @@ let serve = () => {
         }
     });
 
-    watch(`html/**/*.html`,`js/**/*.js`).on(`change`, reload);
+    watch(`html/**/*.html`,`./temp/js/`).on(`change`, reload);
 };
 
 
