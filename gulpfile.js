@@ -3,6 +3,7 @@ const htmlCompressor  = require (`gulp-htmlmin`);
 const jsCompressor = require(`gulp-uglify`);
 const babel = require(`gulp-babel`);
 const cssLinter = require(`gulp-stylelint`);
+const jsLinter = require(`gulp-eslint`);
 const browserSync = require(`browser-sync`);
 const reload = browserSync.reload;
 
@@ -26,6 +27,11 @@ let lintCSS = () => {
             ]
         }));
 };
+let lintJS = () => {
+    return src(`scripts/*.js`)
+        .pipe(jsLinter())
+        .pipe(jsLinter.formatEach(`compact`, process.stderr));
+};
 let serve = () => {
     browserSync({
         notify: true,
@@ -43,4 +49,5 @@ let serve = () => {
 exports.compressHTML = compressHTML;
 exports.compressJS = compressJS;
 exports.lintCSS = lintCSS;
+exports.lintJS = lintJS;
 exports.serve = serve;
