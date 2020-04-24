@@ -23,7 +23,7 @@ let serve = () => {
         server: {       // end of a series of tasks.
             baseDir: [
                 `html`,
-                `/.html`
+                `.html`
             ]
         }
     });
