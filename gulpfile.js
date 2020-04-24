@@ -4,6 +4,7 @@ const jsCompressor = require(`gulp-uglify`);
 const babel = require(`gulp-babel`);
 const cssLinter = require(`gulp-stylelint`);
 const jsLinter = require(`gulp-eslint`);
+const htmlValidator = require(`gulp-html`);
 const browserSync = require(`browser-sync`);
 const reload = browserSync.reload;
 
@@ -12,6 +13,12 @@ let compressHTML = () => {
         .pipe(htmlCompressor({collapseWhitespace: true}))
         .pipe(dest(`compressed-html/`));
 };
+
+let validateHTML = () => {
+    return src(`html/*.html`)
+        .pipe(htmlValidator());
+};
+
 let compressJS = () => {
     return src(`js*.js`)
         .pipe(babel())
@@ -46,7 +53,10 @@ let serve = () => {
     watch(`html/**/*.html`,`js/**/*.js`).on(`change`, reload);
 };
 
+
+
 exports.compressHTML = compressHTML;
+exports.validateHTML = validateHTML;
 exports.compressJS = compressJS;
 exports.lintCSS = lintCSS;
 exports.lintJS = lintJS;
