@@ -12,7 +12,7 @@ const reload = browserSync.reload;
 let compressHTML = () => {
     return src(`html/*.html`)
         .pipe(htmlCompressor({collapseWhitespace: true}))
-        .pipe(dest(`compressed-html/`));
+        .pipe(dest(`prod`));
 };
 
 let validateHTML = () => {
