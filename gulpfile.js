@@ -1,4 +1,4 @@
-const { src, dest, watch }= require(`gulp`);
+const { src, dest, watch, series }= require(`gulp`);
 const htmlCompressor  = require (`gulp-htmlmin`);
 const jsCompressor = require(`gulp-uglify`);
 const babel = require(`gulp-babel`);
@@ -67,4 +67,7 @@ exports.compressJS = compressJS;
 exports.compressCSS= compressCSS;
 exports.lintCSS = lintCSS;
 exports.lintJS = lintJS;
+exports.build = series (
+    compressHTML,
+);
 exports.serve = serve;
