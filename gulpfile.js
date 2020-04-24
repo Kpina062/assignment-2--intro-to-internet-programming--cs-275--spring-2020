@@ -2,6 +2,7 @@ const { src, dest, watch }= require(`gulp`);
 const htmlCompressor  = require (`gulp-htmlmin`);
 const jsCompressor = require(`gulp-uglify`);
 const babel = require(`gulp-babel`);
+const cssLinter = require(`gulp-stylelint`);
 const browserSync = require(`browser-sync`);
 const reload = browserSync.reload;
 
@@ -16,6 +17,15 @@ let compressJS = () => {
         .pipe(jsCompressor())
         .pipe(dest(`compressed-scripts`));
 };
+let lintCSS = () => {
+    return src(`css/*.css`)
+        .pipe(cssLinter({
+            failAfterError: true,
+            reporters: [
+                {formatter: `verbose`, console: true}
+            ]
+        }));
+};
 let serve = () => {
     browserSync({
         notify: true,
@@ -23,14 +33,14 @@ let serve = () => {
         server: {       // end of a series of tasks.
             baseDir: [
                 `html`,
-                `.html`
             ]
         }
     });
 
-    watch(`html/**/*.html`).on(`change`, reload);
+    watch(`html/**/*.html`,`js/**/*.js`).on(`change`, reload);
 };
 
 exports.compressHTML = compressHTML;
 exports.compressJS = compressJS;
+exports.lintCSS = lintCSS;
 exports.serve = serve;
