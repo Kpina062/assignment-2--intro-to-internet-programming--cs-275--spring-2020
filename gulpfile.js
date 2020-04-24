@@ -42,7 +42,7 @@ let lintCSS = () => {
         }));
 };
 let lintJS = () => {
-    return src(`scripts/*.js`)
+    return src(`js/*.js`)
         .pipe(jsLinter())
         .pipe(jsLinter.formatEach(`compact`, process.stderr));
 };
