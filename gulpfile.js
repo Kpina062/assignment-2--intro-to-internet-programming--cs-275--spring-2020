@@ -3,6 +3,7 @@ const htmlCompressor  = require (`gulp-htmlmin`);
 const jsCompressor = require(`gulp-uglify`);
 const babel = require(`gulp-babel`);
 const cssLinter = require(`gulp-stylelint`);
+const cssCompressor = require(`gulp-uglifycss`);
 const jsLinter = require(`gulp-eslint`);
 const htmlValidator = require(`gulp-html`);
 const browserSync = require(`browser-sync`);
@@ -11,7 +12,7 @@ const reload = browserSync.reload;
 let compressHTML = () => {
     return src(`html/*.html`)
         .pipe(htmlCompressor({collapseWhitespace: true}))
-        .pipe(dest(`compressed-html/`));
+        .pipe(dest(`html`));
 };
 
 let validateHTML = () => {
@@ -23,8 +24,14 @@ let compressJS = () => {
     return src(`js*.js`)
         .pipe(babel())
         .pipe(jsCompressor())
-        .pipe(dest(`compressed-scripts`));
+        .pipe(dest(`js`));
 };
+let compressCSS = () => {
+    return src (`css*.css`)
+        .pipe(cssCompressor({collapseWhitespace: true}))
+        .pipe(dest(`css`));
+};
+
 let lintCSS = () => {
     return src(`css/*.css`)
         .pipe(cssLinter({
@@ -58,6 +65,7 @@ let serve = () => {
 exports.compressHTML = compressHTML;
 exports.validateHTML = validateHTML;
 exports.compressJS = compressJS;
+exports.compressCSS= compressCSS;
 exports.lintCSS = lintCSS;
 exports.lintJS = lintJS;
 exports.serve = serve;
