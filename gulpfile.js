@@ -27,7 +27,7 @@ let compressJS = () => {
         .pipe(dest(`js`));
 };
 let compressCSS = () => {
-    return src (`css*.css`)
+    return src (`./css/**/*.css`)
         .pipe(cssCompressor({collapseWhitespace: true}))
         .pipe(dest(`css`));
 };
@@ -53,6 +53,7 @@ let serve = () => {
         server: {       // end of a series of tasks.
             baseDir: [
                 `html`,
+                `./temp`
             ]
         }
     });
