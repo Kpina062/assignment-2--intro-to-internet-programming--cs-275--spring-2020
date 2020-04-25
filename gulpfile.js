@@ -10,14 +10,14 @@ const browserSync = require(`browser-sync`);
 const reload = browserSync.reload;
 
 let compressHTML = () => {
-    return src(`dev/html/*.html`, `dev/html/**/*.html`)
+    return src([`dev/html/*.html`, `dev/html/**/*.html`])
         .pipe(htmlCompressor({collapseWhitespace: true}))
         .pipe(dest(`prod`));
 };
 
 let validateHTML = () => {
     return src(`dev/*.html`)
-        .pipe(htmlValidator());
+        .pipe(htmlValidator(undefined));
 };
 
 let compressJS = () => {
@@ -30,14 +30,13 @@ let transpileJSForProd = () => {
     return src (`dev/*.js`)
         .pipe(babel())
         .pipe(jsCompressor())
-        .pipe(dest(`prod`));
+        .pipe( dest(`prod`));
 };
 
-
 let compressCSS = () => {
-    return src (`dev/css/*.css`,`dev/css/**/*.css`)
+    return src ([`dev/css/*.css`,`dev/css/**/*.css`])
         .pipe(cssCompressor({collapseWhitespace: true}))
-        .pipe(dest(`prod`));
+        .pipe( dest(`prod`));
 };
 
 let lintCSS = () => {
@@ -50,7 +49,7 @@ let lintCSS = () => {
         }));
 };
 let lintJS = () => {
-    return src(`dev/*.js`)
+    return src (`dev/*.js`)
         .pipe(jsLinter())
         .pipe(jsLinter.formatEach(`compact`, process.stderr));
 };
@@ -66,7 +65,6 @@ let serve = () => {
             ]
         }
     });
-
     watch(`dev/html/**/*.html`, series(validateHTML)).on(`change`, reload);
     watch (`dev/js/**/*.js`, series(lintJS, compressJS)).on(`change`, reload);
     watch (`dev/css/**/*.css`, series(compressCSS)) .on(`change`, reload);
