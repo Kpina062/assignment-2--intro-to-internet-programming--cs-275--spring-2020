@@ -58,7 +58,7 @@ let serve = () => {
         }
     });
 
-    watch(`html/**/*.html`).on(`change`, reload);
+    watch(`html/**/*.html`,`js/*.js`).on(`change`, reload);
 };
 
 exports.compressHTML = compressHTML;
