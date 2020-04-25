@@ -1,4 +1,4 @@
-const { src, dest, watch, series }= require(`gulp`);
+const { src, dest, series, watch }= require(`gulp`);
 const htmlCompressor  = require (`gulp-htmlmin`);
 const jsCompressor = require(`gulp-uglify`);
 const babel = require(`gulp-babel`);
@@ -24,12 +24,12 @@ let compressJS = () => {
     return src(`js*.js`)
         .pipe(babel())
         .pipe(jsCompressor())
-        .pipe(dest(`js`));
+        .pipe(dest(`prod/js`));
 };
 let compressCSS = () => {
     return src (`./css/**/*.css`)
         .pipe(cssCompressor({collapseWhitespace: true}))
-        .pipe(dest(`css`));
+        .pipe(dest(`prod`));
 };
 
 let lintCSS = () => {
