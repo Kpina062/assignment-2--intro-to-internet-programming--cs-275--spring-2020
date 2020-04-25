@@ -41,12 +41,12 @@ let compressCSS = () => {
 };
 
 let lintCSS = () => {
-    return src(`css/*.css`)
+    return src(`dev/*.css`)
         .pipe(cssLinter({
+            failAfterError: true,
             reporters: [
                 {formatter: `verbose`, console: true}
-            ],
-            failAfterError: true
+            ]
         }));
 };
 let lintJS = () => {
@@ -72,6 +72,7 @@ let serve = () => {
     watch (`dev/css/**/*.css`, series(compressCSS)) .on(`change`, reload);
 };
 exports.serve = series(lintJS, compressJS, validateHTML, serve);
+exports.serve = serve;
 exports.compressHTML = compressHTML;
 exports.validateHTML = validateHTML;
 exports.compressJS = compressJS;
@@ -84,4 +85,4 @@ exports.build = series (
     compressCSS,
     transpileJSForProd
 );
-exports.serve = serve;
+
