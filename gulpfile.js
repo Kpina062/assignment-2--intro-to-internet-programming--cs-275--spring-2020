@@ -10,24 +10,32 @@ const browserSync = require(`browser-sync`);
 const reload = browserSync.reload;
 
 let compressHTML = () => {
-    return src(`html/*.html`)
+    return src(`dev/html/*.html`, `dev/html/**/*.html`)
         .pipe(htmlCompressor({collapseWhitespace: true}))
         .pipe(dest(`prod`));
 };
 
 let validateHTML = () => {
-    return src(`html/*.html`)
+    return src(`dev/*.html`)
         .pipe(htmlValidator());
 };
 
 let compressJS = () => {
-    return src(`js*.js`)
+    return src(`dev/*.js`)
         .pipe(babel())
         .pipe(jsCompressor())
-        .pipe(dest(`prod/js`));
+        .pipe(dest(`prod`));
 };
+let transpileJSForProd = () => {
+    return src (`dev/*.js`)
+        .pipe(babel())
+        .pipe(jsCompressor())
+        .pipe(dest(`prod`));
+};
+
+
 let compressCSS = () => {
-    return src (`./css/**/*.css`)
+    return src (`dev/css/*.css`,`dev/css/**/*.css`)
         .pipe(cssCompressor({collapseWhitespace: true}))
         .pipe(dest(`prod`));
 };
@@ -35,14 +43,14 @@ let compressCSS = () => {
 let lintCSS = () => {
     return src(`css/*.css`)
         .pipe(cssLinter({
-            failAfterError: true,
             reporters: [
                 {formatter: `verbose`, console: true}
-            ]
+            ],
+            failAfterError: true
         }));
 };
 let lintJS = () => {
-    return src(`js/*.js`)
+    return src(`dev/*.js`)
         .pipe(jsLinter())
         .pipe(jsLinter.formatEach(`compact`, process.stderr));
 };
@@ -52,22 +60,28 @@ let serve = () => {
         reloadDelay: 0, // A delay is sometimes helpful when reloading at the
         server: {       // end of a series of tasks.
             baseDir: [
-                `./temp`,
-                `html`
+                `temp`,
+                `dev`,
+                `dev/html`
             ]
         }
     });
 
-    watch(`html/**/*.html`,`js/*.js`).on(`change`, reload);
+    watch(`dev/html/**/*.html`, series(validateHTML)).on(`change`, reload);
+    watch (`dev/js/**/*.js`, series(lintJS, compressJS)).on(`change`, reload);
+    watch (`dev/css/**/*.css`, series(compressCSS)) .on(`change`, reload);
 };
-
+exports.serve = series(lintJS, compressJS, validateHTML, serve);
 exports.compressHTML = compressHTML;
 exports.validateHTML = validateHTML;
 exports.compressJS = compressJS;
+exports.transpileJSForProd = transpileJSForProd;
 exports.compressCSS= compressCSS;
 exports.lintCSS = lintCSS;
 exports.lintJS = lintJS;
 exports.build = series (
     compressHTML,
+    compressCSS,
+    transpileJSForProd
 );
 exports.serve = serve;
