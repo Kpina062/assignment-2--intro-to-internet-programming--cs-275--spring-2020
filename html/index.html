@@ -3,23 +3,26 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
     <title> Assignment #2 </title>
   </head>
   <body>
   <header>
     <h1>Rice Recipes</h1>
   </header>
-  <label for="pickRecipe"></label><select id="pickRecipe" onchange='on_change(this)'>
+  <label for="pickRecipe"></label><select id="pickRecipe" onchange='onchange(this.value)'>
     <option value="0">Pick the Rice Recipe</option>
     <option value="1"> Sprouted California Rice</option>
     <option value="2">White Rice</option>
   </select>
   <fieldset>
+    <p>Type a value in Ounces of how much rice you want:</p>
     <p>
-    <label>Enter the amount of servings you want: </label>
-      <label for="serving"></label><input type="number" id="serving" min="0" max="20">
+      <label>Amount in: </label>
+      <input id="inputOunces" type="number" placeholder="Ounces of Rice" oninput="weightConverter(this.value)" onchange="weightConverter(this.value)">
     </p>
+    <p>Ounces: <span id="outputOunces"></span></p>
+
   </fieldset>
   <div id="Recipe1" style="display:none;">
     <h2>Making Sprouted California Rice</h2>
@@ -31,5 +34,5 @@
     <p>Combine 1 cup of rice with 2 cups of water and 1 Tbsp olive oil. Bring to a boil, then reduce heat to the lowest setting. Cook for about 18 minutes.</p>
   </div>
   </body>
-  <script src="js/app.js"></script>
+  <script src="../js/app.js"></script>
 </html>
