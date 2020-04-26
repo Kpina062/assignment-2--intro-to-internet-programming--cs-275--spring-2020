@@ -56,8 +56,8 @@ let lintJS = () => {
 };
 let serve = () => {
     browserSync({
-        notify: true,
-        reloadDelay: 0, // A delay is sometimes helpful when reloading at the
+        reloadDelay: 50,
+        notify: true, // A delay is sometimes helpful when reloading at the
         server: {       // end of a series of tasks.
             baseDir: [
                 `temp`,
