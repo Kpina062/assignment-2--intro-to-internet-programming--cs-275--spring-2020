@@ -24,13 +24,14 @@ let compressJS = () => {
     return src(`dev/*.js`)
         .pipe(babel())
         .pipe(jsCompressor())
-        .pipe(dest(`prod`));
+        .pipe(dest(`prod/js`));
 };
+
 let transpileJSForProd = () => {
-    return src (`dev/*.js`)
+    return src (`dev/js/*.js`)
         .pipe(babel())
         .pipe(jsCompressor())
-        .pipe( dest(`prod`));
+        .pipe( dest(`prod/js`));
 };
 
 let compressCSS = () => {
@@ -40,7 +41,7 @@ let compressCSS = () => {
 };
 
 let lintCSS = () => {
-    return src(`dev/*.css`)
+    return src(`dev/css/*.css`)
         .pipe(cssLinter({
             failAfterError: true,
             reporters: [
@@ -49,7 +50,7 @@ let lintCSS = () => {
         }));
 };
 let lintJS = () => {
-    return src (`dev/*.js`)
+    return src (`dev/js/*.js`)
         .pipe(jsLinter())
         .pipe(jsLinter.formatEach(`compact`, process.stderr));
 };
@@ -66,10 +67,10 @@ let serve = () => {
         }
     });
     watch(`dev/html/**/*.html`, series(validateHTML)).on(`change`, reload);
-    watch (`dev/js/**/*.js`, series(lintJS, compressJS)).on(`change`, reload);
+    watch(`dev/js/*.js`, series(lintJS, compressJS)).on(`change`, reload);
     watch (`dev/css/**/*.css`, series(compressCSS)) .on(`change`, reload);
 };
-exports.serve = series(lintJS, compressJS, validateHTML, serve);
+exports.serve = series(lintJS, transpileJSForProd, validateHTML, serve);
 exports.serve = serve;
 exports.compressHTML = compressHTML;
 exports.validateHTML = validateHTML;
@@ -79,8 +80,7 @@ exports.compressCSS= compressCSS;
 exports.lintCSS = lintCSS;
 exports.lintJS = lintJS;
 exports.build = series (
-    compressHTML,
     compressCSS,
+    compressHTML,
     transpileJSForProd
 );
-
