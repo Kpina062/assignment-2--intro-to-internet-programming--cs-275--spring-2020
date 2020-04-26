@@ -10,15 +10,15 @@
   <header>
     <h1>Rice Recipes</h1>
   </header>
-  <label for="pickRecipe"></label><select id="pickRecipe" onchange='onchange(this.value)'>
+  <label for="pickRecipe"></label><select id="pickRecipe" onchange='on_change(this)'>
     <option value="0">Pick the Rice Recipe</option>
     <option value="1"> Sprouted California Rice</option>
     <option value="2">White Rice</option>
   </select>
   <fieldset>
     <p>
-      <label>Type a value in Ounces of how much rice you want: </label>
-    <input type="number" id="serving" min="1" max="20">
+      <label>Type a values in Ounces of how much rice you want: </label>
+      <label for="serving"></label><input type="number" id="serving" min="1" max="20">
     </p>
   </fieldset>
   <div id="Recipe1" style="display:none;">
