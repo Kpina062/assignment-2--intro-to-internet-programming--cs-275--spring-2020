@@ -37,7 +37,7 @@ let transpileJSForProd = () => {
 let compressCSS = () => {
     return src ([`dev/css/*.css`,`dev/css/**/*.css`])
         .pipe(cssCompressor({collapseWhitespace: true}))
-        .pipe( dest(`prod`));
+        .pipe( dest(`prod/css`));
 };
 
 let lintCSS = () => {
