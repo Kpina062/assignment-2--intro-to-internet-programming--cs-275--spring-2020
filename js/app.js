@@ -1,5 +1,5 @@
 alert(`JavaScript works!`);
-function on_change (el) {
+function onchange (el) {
     if (el.options[el.selectedIndex].value === `1`) {
         document.getElementById(`Recipe1`).style.display = `block`;
     } else {
@@ -10,4 +10,7 @@ function on_change (el) {
     } else {
         document.getElementById(`Recipe2`).style.display = `block`;
     }
+}
+function weightConverter(valNum) {
+    document.getElementById(`outputOunces`).innerHTML=valNum*16;
 }
