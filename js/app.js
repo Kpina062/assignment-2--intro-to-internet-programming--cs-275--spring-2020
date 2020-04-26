@@ -11,6 +11,4 @@ function onchange (el) {
         document.getElementById(`Recipe2`).style.display = `block`;
     }
 }
-function weightConverter(valNum) {
-    document.getElementById(`outputOunces`).innerHTML=valNum*16;
-}
+
