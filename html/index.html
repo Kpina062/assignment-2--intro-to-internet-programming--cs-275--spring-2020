@@ -1,15 +1,12 @@
 <!DOCTYPE html>
   <html lang="en">
   <head>
-    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="css/style.css">
     <title> Assignment #2 </title>
   </head>
   <body>
-  <header>
-    <h1>Rice Recipes</h1>
-  </header>
+  <h1>Rice Recipes</h1>
   <label for="pickRecipe"></label><select id="pickRecipe" onchange='on_change(this)'>
     <option value="0">Pick the Rice Recipe</option>
     <option value="1"> Sprouted California Rice</option>
@@ -18,18 +15,19 @@
   <fieldset>
     <p>
       <label>Type a values in Ounces of how much rice you want: </label>
-      <label for="serving"></label><input type="number" id="serving" min="1" max="20">
+    <input type="number" id="serving" min="1" max="20">
     </p>
   </fieldset>
   <div id="Recipe1" style="display:none;">
     <h2>Making Sprouted California Rice</h2>
     <p>For slightly al dente rice: Combine 1 1/4 cups of rice with 2 cups of water or broth and 1 Tbsp olive oil. Bring to a boil and stir once to mix. Reduce heat to low, cover with a tight-fitting lid and cook for 25 minutes. Remove from heat and let stand for 5 minutes. Fluff with a fork and serve.</p>
-    <br><br> For softer rice: Increase liquid by 1/2 cup and cook time by 5 minutes.
+    <br><br>For softer rice: Increase liquid by 1/2 cup and cook time by 5 minutes.
   </div>
   <div id="Recipe2" style="display:none;">
     <h2>Making White Rice</h2>
-    <p>Combine 1 cup of rice with 2 cups of water and 1 Tbsp olive oil. Bring to a boil, then reduce heat to the lowest setting. Cook for about 18 minutes.</p>
+    <p>Combine 1 cup of rice with 2 cups of water and 1 Tbsp olive oil. Bring to a boil, then reduce heat to the lowest
+      setting. Cook for about 18 minutes.</p>
   </div>
   </body>
-  <script src="js/app.js"></script>
+  <script src="../js/app.js"></script>
 </html>
