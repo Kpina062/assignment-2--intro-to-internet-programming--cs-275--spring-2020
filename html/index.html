@@ -16,13 +16,10 @@
     <option value="2">White Rice</option>
   </select>
   <fieldset>
-    <p>Type a value in Ounces of how much rice you want:</p>
     <p>
-      <label>Amount in: </label>
-      <input id="inputOunces" type="number" placeholder="Ounces of Rice" oninput="weightConverter(this.value)" onchange="weightConverter(this.value)">
+      <label>Type a value in Ounces of how much rice you want: </label>
+    <input type="number" id="serving" min="1" max="20">
     </p>
-    <p>Ounces: <span id="outputOunces"></span></p>
-
   </fieldset>
   <div id="Recipe1" style="display:none;">
     <h2>Making Sprouted California Rice</h2>
