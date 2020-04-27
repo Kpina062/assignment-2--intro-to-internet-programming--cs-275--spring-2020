@@ -40,7 +40,7 @@ let compressCSS = () => {
         .pipe( dest(`temp/css`));
 };
 
-let compressCSSForProd = () => {
+let transpileCSSForProd = () => {
     return src ([`css/*.css`,`css/**/*.css`])
         .pipe(cssCompressor({collapseWhitespace: true}))
         .pipe( dest(`prod/css`));
@@ -82,13 +82,14 @@ exports.compressHTML = compressHTML;
 exports.validateHTML = validateHTML;
 exports.compressJS = compressJS;
 exports.transpileJSForProd = transpileJSForProd;
-exports.compressCSSForProd = compressCSSForProd;
+exports.transpileCSSForProd = transpileCSSForProd;
 exports.compressCSS= compressCSS;
 exports.lintCSS = lintCSS;
 exports.lintJS = lintJS;
 exports.build = series (
     compressCSS,
     compressHTML,
-    transpileJSForProd
+    transpileJSForProd,
+    transpileCSSForProd
 );
 exports.serve = serve;
