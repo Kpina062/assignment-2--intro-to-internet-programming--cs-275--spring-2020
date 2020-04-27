@@ -60,9 +60,10 @@ let serve = () => {
         notify: true, // A delay is sometimes helpful when reloading at the
         server: {       // end of a series of tasks.
             baseDir: [
-                `temp`,
+                `./temp`,
                 `dev`,
-                `dev/html`
+                `dev/html`,
+                `./html`
             ]
         }
     });
