@@ -12,7 +12,7 @@ const reload = browserSync.reload;
 let compressHTML = () => {
     return src([`html/*.html`, `html/**/*.html`])
         .pipe(htmlCompressor({collapseWhitespace: true}))
-        .pipe(dest(`prod/html`));
+        .pipe(dest(`prod`));
 };
 
 let validateHTML = () => {
@@ -24,7 +24,7 @@ let compressJS = () => {
     return src(`js/*.js`)
         .pipe(babel())
         .pipe(jsCompressor())
-        .pipe(dest(`prod/js`));
+        .pipe(dest(`temp/js`));
 };
 
 let transpileJSForProd = () => {
@@ -37,8 +37,15 @@ let transpileJSForProd = () => {
 let compressCSS = () => {
     return src ([`css/*.css`,`css/**/*.css`])
         .pipe(cssCompressor({collapseWhitespace: true}))
+        .pipe( dest(`temp/css`));
+};
+
+let compressCSSForProd = () => {
+    return src ([`css/*.css`,`css/**/*.css`])
+        .pipe(cssCompressor({collapseWhitespace: true}))
         .pipe( dest(`prod/css`));
 };
+
 
 let lintCSS = () => {
     return src(`css/*.css`)
@@ -75,6 +82,7 @@ exports.compressHTML = compressHTML;
 exports.validateHTML = validateHTML;
 exports.compressJS = compressJS;
 exports.transpileJSForProd = transpileJSForProd;
+exports.compressCSSForProd = compressCSSForProd;
 exports.compressCSS= compressCSS;
 exports.lintCSS = lintCSS;
 exports.lintJS = lintJS;
