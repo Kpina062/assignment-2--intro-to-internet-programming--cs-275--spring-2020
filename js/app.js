@@ -10,4 +10,3 @@ function on_change (el) {
         document.getElementById(`Recipe2`).style.display = `block`;
     }
 }
-
