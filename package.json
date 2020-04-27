@@ -20,7 +20,7 @@
     "@babel/core": "^7.9.0",
     "@babel/preset-env": "^7.9.5",
     "babel-core": "^6.26.3",
-    "browser-sync": "^2.26.3",
+    "browser-sync": "^2.26.7",
     "gulp": "^4.0.2",
     "gulp-babel": "^8.0.0",
     "gulp-dev": "^0.3.0",
@@ -39,6 +39,10 @@
     "babel-preset-env": "^1.7.0",
     "inherits.js": "^0.2.0",
     "is-wsl": "^2.1.1",
-    "loader.js": "^4.7.0"
+    "json3": "^3.3.3",
+    "loader.js": "^4.7.0",
+    "socket.io-adapter": "^1.1.2",
+    "socket.io-redis": "^5.2.0",
+    "socket.js": "^0.1.4"
   }
 }
