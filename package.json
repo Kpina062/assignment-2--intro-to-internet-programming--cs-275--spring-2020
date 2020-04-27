@@ -41,8 +41,6 @@
     "is-wsl": "^2.1.1",
     "json3": "^3.3.3",
     "loader.js": "^4.7.0",
-    "socket.io-adapter": "^1.1.2",
-    "socket.io-redis": "^5.2.0",
-    "socket.js": "^0.1.4"
+    "socket.io-adapter": "^1.1.2"
   }
 }
