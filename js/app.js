@@ -1,13 +1,12 @@
 function on_change (el) {
-    if (el.options[el.selectedIndex].value === `1`) {
+    if (el.options[el.selectedIndex].value == `1`) {
         document.getElementById(`Recipe1`).style.display = `block`;
     } else {
-        document.getElementById(`Recipe1`).style.display = `block`;
+        document.getElementById(`Recipe1`).style.display = `hidden`;
     }
     if (el.options[el.selectedIndex].value == `2`) {
         document.getElementById(`Recipe2`).style.display = `block`;
-    }
-    else {
-        document.getElementById(`Recipe2`).style.display = `block`;
+    } else {
+        document.getElementById(`Recipe2`).style.display = `hidden`;
     }
 }
