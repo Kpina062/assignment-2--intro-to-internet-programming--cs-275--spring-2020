@@ -61,7 +61,7 @@ let lintJS = () => {
         .pipe(jsLinter())
         .pipe(jsLinter.formatEach(`compact`, process.stderr));
 };
-let serve = () => {
+let serve = (done) => {
     browserSync({
         reloadDelay: 50,
         notify: true, // A delay is sometimes helpful when reloading at the
@@ -76,6 +76,7 @@ let serve = () => {
     watch(`html/**/*.html`, series(validateHTML)).on(`change`, reload);
     watch(`js/*.js`, series(lintJS, compressJS)).on(`change`, reload);
     watch (`css/*.css`, series(compressCSS)) .on(`change`, reload);
+    done();
 };
 exports.serve = series(lintJS, transpileJSForProd, validateHTML, serve);
 exports.compressHTML = compressHTML;
