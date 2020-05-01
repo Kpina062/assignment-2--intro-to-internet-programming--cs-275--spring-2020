@@ -1,13 +1,13 @@
 let el = document.getElementById(`pickRecipe`);
-el.addEventListener(`click`, on_change);
+el.addEventListener = (`click` , on_change);
 
-function on_change (el) {
+function on_change () {
     if (el.options[el.selectedIndex].value === `1st Recipe`) {
         document.getElementById(`Recipe1`).style.display = `block`;
     } else {
         document.getElementById(`Recipe1`).style.display = `none`;
     }
-    if (el.options[el.selectedIndex].value === `2nd Recipe`) {
+    if (el.options[el.selectedIndex].value ===`2nd Recipe`) {
         document.getElementById(`Recipe2`).style.display = `block`;
     } else {
         document.getElementById(`Recipe2`).style.display = `none`;
