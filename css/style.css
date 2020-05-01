@@ -8,3 +8,20 @@ body {
 style {
   display: none;
 }
+fieldset {
+  background-color: antiquewhite;
+  text-align: center;
+  font-family: Athelas;
+  font-size: larger;
+}
+
+h1 {
+  font-family: Athelas;
+}
+
+h2 {
+  text-align: center;
+  font-family: Athelas;
+}
+
+
