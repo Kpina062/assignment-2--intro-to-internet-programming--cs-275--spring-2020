@@ -2,12 +2,12 @@ let el = document.getElementById(`pickRecipe`);
 el.addEventListener(`click`, on_change);
 
 function on_change (el) {
-    if (el.options[el.selectedIndex].value === `1`) {
+    if (el.options[el.selectedIndex].value === `1st Recipe`) {
         document.getElementById(`Recipe1`).style.display = `block`;
     } else {
         document.getElementById(`Recipe1`).style.display = `none`;
     }
-    if (el.options[el.selectedIndex].value === `2`) {
+    if (el.options[el.selectedIndex].value === `2nd Recipe`) {
         document.getElementById(`Recipe2`).style.display = `block`;
     } else {
         document.getElementById(`Recipe2`).style.display = `none`;
@@ -36,7 +36,7 @@ let oilBox = document.getElementById(`input`);
 function oilCalc() {
     document.getElementById(`ozOliveOil`).innerHTML = oilBox.innerHTML;
     document.getElementById(`ozOliveOil2`).innerHTML = oilBox.innerHTML;
-    let amountOfOil = 0.25*0.25;
+    let amountOfOil = 0.25 * 0.25;
     return amountOfOil;
 }
 
