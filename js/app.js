@@ -38,7 +38,6 @@ function oilCalc() {
     document.getElementById(`ozOliveOil2`).innerHTML = oilBox.innerHTML;
     let amountOfOil = 0.25*0.25;
     return amountOfOil;
-
 }
 
 
