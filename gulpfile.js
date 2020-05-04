@@ -31,19 +31,19 @@ let transpileJSForProd = () => {
     return src (`js/*.js`)
         .pipe(babel())
         .pipe(jsCompressor())
-        .pipe( dest(`prod/js`));
+        .pipe(dest(`prod/js`));
 };
 
 let compressCSS = () => {
     return src ([`css/*.css`,`css/**/*.css`])
         .pipe(cssCompressor({collapseWhitespace: true}))
-        .pipe( dest(`temp/css`));
+        .pipe(dest(`temp/css`));
 };
 
 let transpileCSSForProd = () => {
     return src ([`css/*.css`,`css/**/*.css`])
         .pipe(cssCompressor({collapseWhitespace: true}))
-        .pipe( dest(`prod/css`));
+        .pipe(dest(`prod/css`));
 };
 
 
