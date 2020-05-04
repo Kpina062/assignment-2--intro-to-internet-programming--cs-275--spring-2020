@@ -82,11 +82,10 @@ exports.transpileCSSForProd = transpileCSSForProd;
 exports.compressCSS= compressCSS;
 exports.lintCSS = lintCSS;
 exports.lintJS = lintJS;
-exports.serve = serve;
 exports.build = series (
     compressCSS,
     compressHTML,
     transpileJSForProd,
     transpileCSSForProd,
 );
-
+exports.serve = serve;
