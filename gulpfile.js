@@ -61,11 +61,9 @@ let lintJS = () => {
         .pipe(jsLinter())
         .pipe(jsLinter.formatEach(`compact`, process.stderr));
 };
-let serve = (done) => {
+let serve = () => {
     browserSync({
-        reloadDelay: 50,
-        notify: true, // A delay is sometimes helpful when reloading at the
-        server: {       // end of a series of tasks.
+        server: {
             baseDir: [
                 `html`,
                 `temp`
@@ -73,10 +71,7 @@ let serve = (done) => {
             ]
         }
     });
-    watch(`html/**/*.html`, series(validateHTML)).on(`change`, reload);
-    watch(`js/*.js`, series(lintJS, compressJS)).on(`change`, reload);
-    watch (`css/*.css`, series(compressCSS)) .on(`change`, reload);
-    done();
+    watch([`html/**/*.html`,`js/*.js`, `css/*.css`]) .on(`change`, reload);
 };
 exports.serve = series(lintJS, transpileJSForProd, validateHTML, serve);
 exports.compressHTML = compressHTML;
@@ -87,10 +82,11 @@ exports.transpileCSSForProd = transpileCSSForProd;
 exports.compressCSS= compressCSS;
 exports.lintCSS = lintCSS;
 exports.lintJS = lintJS;
+exports.serve = serve;
 exports.build = series (
     compressCSS,
     compressHTML,
     transpileJSForProd,
-    transpileCSSForProd
+    transpileCSSForProd,
 );
-exports.serve = serve;
+
