@@ -1,7 +1,16 @@
-window.onload = () => {
-
-    document.getElementById.addEventListener(`click`);
-
+const el = document.getElementById(`pickRecipe`);
+el.addEventListener = (on_change, `click`);
+function on_change (el) {
+    if (el.options[el.selectedIndex].value === `1st Recipe`) {
+        document.getElementById(`Recipe1`).style.display = `block`;
+    } else {
+        document.getElementById(`Recipe1`).style.display = `none`;
+    }
+    if (el.options[el.selectedIndex].value ===`2nd Recipe`) {
+        document.getElementById(`Recipe2`).style.display = `block`;
+    } else {
+        document.getElementById(`Recipe2`).style.display = `none`;
+    }
     document.getElementById.addEventListener(`keyup`, riceCalc);
     let riceBox = document.getElementById(`input`);
 
