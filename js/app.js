@@ -1,4 +1,4 @@
-const el = document.getElementById(`pickRecipe`);
+let el = document.getElementById(`pickRecipe`);
 el.addEventListener = (on_change, `click`);
 function on_change (el) {
     if (el.options[el.selectedIndex].value === `1st Recipe`) {
