@@ -1,5 +1,5 @@
-let el = document.getElementById(`pickRecipe`);
-el.addEventListener = (`click` , on_change);
+const el = document.getElementById(`pickRecipe`);
+el.addEventListener = (`click`, on_change);
 
 function on_change () {
     if (el.options[el.selectedIndex].value === `1st Recipe`) {
@@ -36,7 +36,7 @@ let oilBox = document.getElementById(`input`);
 function oilCalc() {
     document.getElementById(`ozOliveOil`).innerHTML = oilBox.innerHTML;
     document.getElementById(`ozOliveOil2`).innerHTML = oilBox.innerHTML;
-    let amountOfOil = 0.25 * 0.25;
+    let amountOfOil = oilBox * 0.5;
     return amountOfOil;
 }
 
