@@ -1,5 +1,5 @@
 const el = document.getElementById(`pickRecipe`);
-el.addEventListener = (`click`, on_change);
+el.addEventListener = (on_change, `click`);
 
 function on_change () {
     if (el.options[el.selectedIndex].value === `1st Recipe`) {
@@ -18,7 +18,7 @@ let riceBox = document.getElementById(`input`);
 function riceCalc() {
     document.getElementById(`ozCali`).innerHTML = riceBox.innerHTML;
     document.getElementById(`ozWhite`).innerHTML = riceBox.innerHTML;
-    let amountOfRice = 2*8;
+    let amountOfRice = riceBox*8;
     return amountOfRice;
 }
 
@@ -27,7 +27,7 @@ let waterBox = document.getElementById(`input`);
 function waterCalc() {
     document.getElementById(`flozCaliWater`).innerHTML = waterBox.innerHTML;
     document.getElementById(`flozWhitewater`).innerHTML = waterBox.innerHTML;
-    let amountOfWater = 2*2;
+    let amountOfWater = waterBox*2;
     return amountOfWater;
 }
 
