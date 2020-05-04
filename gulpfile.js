@@ -73,7 +73,8 @@ let serve = () => {
     });
     watch([`html/**/*.html`,`js/*.js`, `css/*.css`]) .on(`change`, reload);
 };
-exports.serve = series(lintJS, transpileJSForProd, validateHTML, serve);
+exports.serve = series(lintJS, transpileJSForProd,
+    transpileCSSForProd, validateHTML, serve);
 exports.compressHTML = compressHTML;
 exports.validateHTML = validateHTML;
 exports.compressJS = compressJS;
