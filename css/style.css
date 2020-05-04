@@ -11,17 +11,17 @@ style {
 fieldset {
   background-color: antiquewhite;
   text-align: center;
-  font-family: Athelas;
+  font-family: Athelas, serif;
   font-size: larger;
 }
 
 h1 {
-  font-family: Athelas;
+  font-family: Athelas, serif;
 }
 
 h2 {
   text-align: center;
-  font-family: Athelas;
+  font-family: Athelas, serif;
 }
 
 
