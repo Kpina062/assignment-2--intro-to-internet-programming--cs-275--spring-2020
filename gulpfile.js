@@ -89,4 +89,4 @@ exports.build = series (
     transpileJSForProd,
     transpileCSSForProd,
 );
-exports.default = serve;
+exports.serve = serve;
